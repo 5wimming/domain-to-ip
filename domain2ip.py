@@ -53,6 +53,8 @@ def my_dig(file_name, dns_name):
                     ip = re.match(r'.*\\t([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}).*', temp)
                     if ip and ip.group(1) not in ips:
                         ips.append(ip.group(1))
+                if 'AUTHORITY SECTION' in temp:
+                    break
 
         if ips:
             temp = full_url + '\t' + ';'.join(ips) + '\t' + 'dig' + '\n'
@@ -71,4 +73,3 @@ if __name__ == '__main__':
     # 下面两个函数直接使用gethostbyname_ex解析域名
     #get_host_from_file('./domain.txt')
     #get_host_from_url('www.baidu.cn')
-
